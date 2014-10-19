@@ -33,14 +33,12 @@ Function setLocalEnvVar($name, $value) {
     New-Item "env:" -Force -name $name -value $value
 }
 
-function reloadVariable($varName, $default) {
+function reloadVariable($varName) {
     $value = ([Environment]::GetEnvironmentVariable($varName, "User"))
 
-    if ($value -eq $null) {
-        $value = $default
+    if ($value -ne $null) {
+        setLocalEnvVar $varName $value
     }
-
-    setLocalEnvVar $varName $value
 }
 
 Set-Alias story Set-Story
